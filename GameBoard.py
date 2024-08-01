@@ -144,3 +144,6 @@ class GameBoard:
                 print(self.board[i][j], end=' ')
             print()
         print("\n")
+
+    def is_column_available(self, column):
+        return self.board[0][column] == GameBoard.EMPTY_BOX

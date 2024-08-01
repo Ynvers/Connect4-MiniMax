@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import time
+import random
 
 from GameView import *
 
@@ -35,21 +36,33 @@ class Game:
                 and self.playedChips < Game.NUMBER_OF_CHIPS:
             time.sleep(0.05)
             # Le joueur joue
-            for event in self.gameView.pyGame.event.get():
+            gamer = self.get_gamer()
+            if gamer == GameBoard.RED_CHIP:
+                self.random_move(gamer)
+            else: 
+                for event in self.gameView.pyGame.event.get():
 
-                self.gameView.gameBoard.display()
+                    self.gameView.gameBoard.display()
 
-                if event.type == self.gameView.pyGame.MOUSEBUTTONUP:
-                    x, y = self.gameView.pyGame.mouse.get_pos()
-                    gamer = self.get_gamer()
-                    column = self.gameView.determine_column(x)
-                    # On modifie les variables pour tenir compte du jeton depose.
-                    self.gameView.gameBoard.put_chip(column, gamer)
-                    self.playedChips = self.playedChips + 1
-                    self.potentialWinner = self.gameView.gameBoard.get_winner()
-                    print("GAGNANT ? : " + str(self.potentialWinner))
-                    self.gameView.render()
-                    self.gameView.pyGame.display.flip()
+                    if event.type == self.gameView.pyGame.MOUSEBUTTONUP:
+                        x, y = self.gameView.pyGame.mouse.get_pos()
+                        gamer = self.get_gamer()
+                        column = self.gameView.determine_column(x)
+                        self.make_move(column, gamer)
 
-                if event.type == self.gameView.pyGame.QUIT:
-                    sys.exit(0)
+                    if event.type == self.gameView.pyGame.QUIT:
+                        sys.exit(0)
+
+    def random_move(self, gamer):
+        available_columns = [i for i in range(7) if self.gameView.gameBoard.is_column_available(i)]
+        if available_columns: 
+            column = random.choice(available_columns)
+            self.make_move(column, gamer)
+
+    def make_move(self, column, gamer):
+        self.gameView.gameBoard.put_chip(column, gamer)
+        self.playedChips += 1
+        self.potentialWinner = self.gameView.gameBoard.get_winner()
+        print("Gagnant ? : " + str(self.potentialWinner))
+        self.gameView.render()
+        self.gameView.pyGame.display.flip()
