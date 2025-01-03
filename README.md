@@ -11,18 +11,19 @@ Install a venv if needed
 
 ```bash
     cd puissance4Like
-    virtualenv venv 
+    python -m venv venv
+    source venv/bin/activate
 ```
 ### Install dependancies
 
 ```bash
-    ./venv/bin/pip3 install -r requirements.txt
+    pip install -r requirements.txt
 ``` 
 
 ### Run it
 
 ```bash
-    ./venv/bin/python3 main.py
+    python3 main.py
 ``` 
 
 ## Course
