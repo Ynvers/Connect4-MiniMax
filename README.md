@@ -12,7 +12,16 @@ Install a venv if needed
 ```bash
     cd puissance4Like
     python -m venv venv
+```
+
+### Setup in this environnement 
+## On Linux
+```bash
     source venv/bin/activate
+```
+## On window
+```bash
+    venv\Scripts\activate
 ```
 ### Install dependancies
 
