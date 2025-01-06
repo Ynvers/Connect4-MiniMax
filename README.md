@@ -10,7 +10,7 @@ Install a venv if needed
 ### Create a virtualenv
 
 ```bash
-    cd puissance4Like
+    cd Connect4-MiniMax
     python -m venv venv
 ```
 
